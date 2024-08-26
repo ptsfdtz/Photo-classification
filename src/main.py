@@ -83,6 +83,14 @@ def organize_photos(src_dir, dest_dir, font_path, add_watermark=False, organize_
             task.result()
 
 if __name__ == "__main__":
+    print("Photo Organizer")
+
+    print("=-------------------------------------------=")
+    print("请确保源目录和目标目录都存在，且有读写权限。")
+    print("请确保字体文件存在。")
+    print("请确保源目录中没有包含中文文件名。")
+    print("=-------------------------------------------=")  
+
     src_directory = "images/input_folder"  # 替换为你的源目录路径
     dest_directory = "images/output_folder"  # 替换为你的目标目录路径
     font_path = 'fonts/QwitcherGrypen-Bold.ttf'  # 替换为你的字体路径
