@@ -7,3 +7,10 @@
 ## 用法
 
 1. 下载或克隆该项目到本地。
+
+```sh
+git clone https://github.com/ptsfdtz/Photo-classification.git
+cd Photo-classification
+pip install -r requirements.txt
+python src/main.py
+```
