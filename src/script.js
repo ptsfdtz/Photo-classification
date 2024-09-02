@@ -6,8 +6,8 @@ const downloadButton = document.getElementById("download");
 const fontSelect = document.getElementById("fontSelect");
 const positionRadios = document.getElementsByName("position");
 
-let currentImageSrc = null; // 用于保存当前图片的 src
-let imageTimestamp = null; // 用于保存图片文件的时间戳
+let currentImageSrc = null; // 保存当前图片的 src
+let imageTimestamp = null; // 保存图片文件的时间戳
 
 function processImage(file) {
   imageTimestamp = new Date(file.lastModified); // 获取文件的时间戳
@@ -22,21 +22,12 @@ function processImage(file) {
 function drawImageWithWatermark(src, timestamp) {
   const img = new Image();
   img.onload = () => {
-    const { newWidth, newHeight } = scaleImage(img);
-    setupCanvas(newWidth, newHeight);
-    ctx.drawImage(img, 0, 0, newWidth, newHeight);
-    addWatermark(newWidth, newHeight, timestamp);
+    setupCanvas(img.width, img.height);
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    addWatermark(img.width, img.height, timestamp);
     updateOutput();
   };
   img.src = src;
-}
-
-function scaleImage(img) {
-  const scale = Math.min(
-    window.innerWidth / img.width,
-    window.innerHeight / img.height
-  );
-  return { newWidth: img.width * scale, newHeight: img.height * scale };
 }
 
 function setupCanvas(width, height) {
@@ -93,7 +84,7 @@ function updateOutput() {
 
 function downloadImage() {
   const link = document.createElement("a");
-  link.href = canvas.toDataURL("image/png");
+  link.href = canvas.toDataURL("image/png", 1.0);
   link.download = "带水印的图片.png";
   link.click();
 }
