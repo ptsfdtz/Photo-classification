@@ -3,20 +3,29 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const output = document.getElementById("output");
 const downloadButton = document.getElementById("download");
+const fontSelect = document.getElementById("fontSelect");
+const positionRadios = document.getElementsByName("position");
+
+let currentImageSrc = null; // 用于保存当前图片的 src
+let imageTimestamp = null; // 用于保存图片文件的时间戳
 
 function processImage(file) {
+  imageTimestamp = new Date(file.lastModified); // 获取文件的时间戳
   const reader = new FileReader();
-  reader.onload = (e) => drawImageWithWatermark(e.target.result);
+  reader.onload = (e) => {
+    currentImageSrc = e.target.result; // 保存当前图片 src
+    drawImageWithWatermark(currentImageSrc, imageTimestamp);
+  };
   reader.readAsDataURL(file);
 }
 
-function drawImageWithWatermark(src) {
+function drawImageWithWatermark(src, timestamp) {
   const img = new Image();
   img.onload = () => {
     const { newWidth, newHeight } = scaleImage(img);
     setupCanvas(newWidth, newHeight);
     ctx.drawImage(img, 0, 0, newWidth, newHeight);
-    addWatermark(newWidth, newHeight);
+    addWatermark(newWidth, newHeight, timestamp);
     updateOutput();
   };
   img.src = src;
@@ -35,12 +44,46 @@ function setupCanvas(width, height) {
   canvas.height = height;
 }
 
-function addWatermark(width, height) {
-  ctx.font = "32px Arial";
+function addWatermark(width, height, timestamp) {
+  const fontSize = Math.max(Math.min(width, height) * 0.05, 16);
+  const selectedFont = fontSelect.value;
+  ctx.font = `${fontSize}px ${selectedFont}`;
   ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-  ctx.textAlign = "right";
-  ctx.textBaseline = "bottom";
-  ctx.fillText(new Date().toLocaleString(), width - 20, height - 20);
+
+  const selectedPosition = [...positionRadios].find(
+    (radio) => radio.checked
+  ).value;
+
+  let x, y;
+
+  switch (selectedPosition) {
+    case "bottom-right":
+      ctx.textAlign = "right";
+      ctx.textBaseline = "bottom";
+      x = width - 20;
+      y = height - 20;
+      break;
+    case "bottom-left":
+      ctx.textAlign = "left";
+      ctx.textBaseline = "bottom";
+      x = 20;
+      y = height - 20;
+      break;
+    case "top-right":
+      ctx.textAlign = "right";
+      ctx.textBaseline = "top";
+      x = width - 20;
+      y = 20;
+      break;
+    case "top-left":
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      x = 20;
+      y = 20;
+      break;
+  }
+
+  ctx.fillText(timestamp.toLocaleString(), x, y);
 }
 
 function updateOutput() {
@@ -59,3 +102,17 @@ upload.addEventListener("change", (event) =>
   processImage(event.target.files[0])
 );
 downloadButton.addEventListener("click", downloadImage);
+
+fontSelect.addEventListener("change", () => {
+  if (currentImageSrc) {
+    drawImageWithWatermark(currentImageSrc, imageTimestamp);
+  }
+});
+
+positionRadios.forEach((radio) =>
+  radio.addEventListener("change", () => {
+    if (currentImageSrc) {
+      drawImageWithWatermark(currentImageSrc, imageTimestamp);
+    }
+  })
+);

@@ -20,6 +20,21 @@
   <body>
     <h1>照片添加时间戳水印</h1>
     <input type="file" id="upload" accept="image/*" />
+    <label for="fontSelect">选择字体：</label>
+    <select id="fontSelect">
+      <option value="Arial">Arial</option>
+      <option value="Verdana">Verdana</option>
+      <option value="Times New Roman">Times New Roman</option>
+      <option value="Courier New">Courier New</option>
+      <option value="Georgia">Georgia</option>
+      <option value="Comic Sans MS">Comic Sans MS</option>
+    </select>
+    <br />
+    <label>选择水印位置：</label>
+    <input type="radio" name="position" value="bottom-right" checked /> 右下角
+    <input type="radio" name="position" value="bottom-left" /> 左下角
+    <input type="radio" name="position" value="top-right" /> 右上角
+    <input type="radio" name="position" value="top-left" /> 左上角
     <canvas id="canvas" style="display: none"></canvas>
     <img id="output" alt="添加水印后的图片" />
     <button id="download">下载图片</button>
