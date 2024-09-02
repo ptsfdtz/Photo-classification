@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>照片添加时间戳水印</title>
+    <style>
+      #output {
+        display: block;
+        margin-top: 20px;
+        max-width: 100%;
+        height: auto;
+      }
+      #download {
+        display: none;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>照片添加时间戳水印</h1>
+    <input type="file" id="upload" accept="image/*" />
+    <canvas id="canvas" style="display: none"></canvas>
+    <img id="output" alt="添加水印后的图片" />
+    <button id="download">下载图片</button>
+
+    <!-- 引入外部的 script.js 文件 -->
+    <script src="./src/script.js"></script>
+  </body>
+</html>
