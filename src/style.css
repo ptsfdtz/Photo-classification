@@ -1,0 +1,39 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.photo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#canvas {
+    border: 1px solid #ccc;
+    max-width: 70vw; /* 最大宽度为视口宽度的 70% */
+    max-height: 70vh; /* 最大高度为视口高度的 70% */
+    width: auto;
+    height: auto; 
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.controls label,
+.controls select,
+.controls button,
+.controls input {
+    margin: 5px;
+}

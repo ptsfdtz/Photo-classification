@@ -1,23 +1,22 @@
 const upload = document.getElementById("upload");
-const previewCanvas = document.getElementById("canvas"); // 用于预览的 Canvas
+const previewCanvas = document.getElementById("canvas");
 const previewCtx = previewCanvas.getContext("2d");
 const output = document.getElementById("output");
 const downloadButton = document.getElementById("download");
 const fontSelect = document.getElementById("fontSelect");
-const positionRadios = document.getElementsByName("position");
+const positionSelect = document.getElementById("positionSelect");
 
-// 新增用于下载的隐藏 Canvas
 const downloadCanvas = document.createElement("canvas");
 const downloadCtx = downloadCanvas.getContext("2d");
 
-let currentImageSrc = null; // 保存当前图片的 src
-let imageTimestamp = null; // 保存图片文件的时间戳
+let currentImageSrc = null;
+let imageTimestamp = null;
 
 function processImage(file) {
-  imageTimestamp = new Date(file.lastModified); // 获取文件的时间戳
+  imageTimestamp = new Date(file.lastModified);
   const reader = new FileReader();
   reader.onload = (e) => {
-    currentImageSrc = e.target.result; // 保存当前图片 src
+    currentImageSrc = e.target.result;
     drawImageWithWatermark(currentImageSrc, imageTimestamp);
   };
   reader.readAsDataURL(file);
@@ -26,17 +25,25 @@ function processImage(file) {
 function drawImageWithWatermark(src, timestamp) {
   const img = new Image();
   img.onload = () => {
-    // 设置下载 Canvas 与原始图片相同尺寸
+    const maxWidth = window.innerWidth * 0.7; // 最大宽度为视口宽度的 70%
+    const maxHeight = window.innerHeight * 0.7; // 最大高度为视口高度的 70%
+
+    let width = img.width;
+    let height = img.height;
+    const widthRatio = maxWidth / width;
+    const heightRatio = maxHeight / height;
+    const ratio = Math.min(widthRatio, heightRatio);
+
+    width *= ratio;
+    height *= ratio;
+
     setupCanvas(downloadCanvas, downloadCtx, img.width, img.height);
     downloadCtx.drawImage(img, 0, 0, img.width, img.height);
     addWatermark(downloadCtx, img.width, img.height, timestamp);
 
-    // 设置预览 Canvas，尺寸缩小，降低画质
-    const previewWidth = img.width * 0.5; // 将预览图的分辨率设为原图的 50%
-    const previewHeight = img.height * 0.5;
-    setupCanvas(previewCanvas, previewCtx, previewWidth, previewHeight);
-    previewCtx.drawImage(img, 0, 0, previewWidth, previewHeight);
-    addWatermark(previewCtx, previewWidth, previewHeight, timestamp);
+    setupCanvas(previewCanvas, previewCtx, width, height);
+    previewCtx.drawImage(img, 0, 0, width, height);
+    addWatermark(previewCtx, width, height, timestamp);
 
     updateOutput();
   };
@@ -46,18 +53,16 @@ function drawImageWithWatermark(src, timestamp) {
 function setupCanvas(canvas, ctx, width, height) {
   canvas.width = width;
   canvas.height = height;
-  ctx.clearRect(0, 0, width, height); // 清除之前的内容
+  ctx.clearRect(0, 0, width, height);
 }
 
 function addWatermark(ctx, width, height, timestamp) {
-  const fontSize = Math.max(Math.min(width, height) * 0.03, 16); // 设置字体大小 3% 至 10px
-  const selectedFont = fontSelect.value; // 获取用户选择的字体
+  const fontSize = Math.max(Math.min(width, height) * 0.05, 16);
+  const selectedFont = fontSelect.value;
   ctx.font = `${fontSize}px ${selectedFont}`;
   ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
 
-  const selectedPosition = [...positionRadios].find(
-    (radio) => radio.checked
-  ).value;
+  const selectedPosition = positionSelect.value;
 
   let x, y;
 
@@ -115,10 +120,8 @@ fontSelect.addEventListener("change", () => {
   }
 });
 
-positionRadios.forEach((radio) =>
-  radio.addEventListener("change", () => {
-    if (currentImageSrc) {
-      drawImageWithWatermark(currentImageSrc, imageTimestamp);
-    }
-  })
-);
+positionSelect.addEventListener("change", () => {
+  if (currentImageSrc) {
+    drawImageWithWatermark(currentImageSrc, imageTimestamp);
+  }
+});
