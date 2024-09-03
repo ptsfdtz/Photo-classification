@@ -16,29 +16,43 @@
         margin-top: 20px;
       }
     </style>
+    <!-- 加载 Google Fonts 字体 Nerko One -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <h1>照片添加时间戳水印</h1>
     <input type="file" id="upload" accept="image/*" />
-    <label for="fontSelect">选择字体：</label>
+    <label for="fontSelect">选择字体:</label>
     <select id="fontSelect">
       <option value="Arial">Arial</option>
-      <option value="Verdana">Verdana</option>
-      <option value="Times New Roman">Times New Roman</option>
       <option value="Courier New">Courier New</option>
       <option value="Georgia">Georgia</option>
-      <option value="Comic Sans MS">Comic Sans MS</option>
+      <option value="Times New Roman">Times New Roman</option>
+      <option value="Verdana">Verdana</option>
+      <option value="'Nerko One', cursive">Nerko One</option>
     </select>
     <br />
-    <label>选择水印位置：</label>
-    <input type="radio" name="position" value="bottom-right" checked /> 右下角
-    <input type="radio" name="position" value="bottom-left" /> 左下角
-    <input type="radio" name="position" value="top-right" /> 右上角
-    <input type="radio" name="position" value="top-left" /> 左上角
+    <label>选择水印位置:</label>
+    <label>
+      <input type="radio" name="position" value="bottom-right" checked /> 右下
+    </label>
+    <label>
+      <input type="radio" name="position" value="bottom-left" /> 左下
+    </label>
+    <label>
+      <input type="radio" name="position" value="top-right" /> 右上
+    </label>
+    <label>
+      <input type="radio" name="position" value="top-left" /> 左上
+    </label>
     <canvas id="canvas" style="display: none"></canvas>
     <img id="output" alt="添加水印后的图片" />
     <button id="download">下载图片</button>
-
-    <!-- 引入外部的 script.js 文件 -->
     <script src="./src/script.js"></script>
   </body>
 </html>

@@ -1,10 +1,14 @@
 const upload = document.getElementById("upload");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const previewCanvas = document.getElementById("canvas"); // 用于预览的 Canvas
+const previewCtx = previewCanvas.getContext("2d");
 const output = document.getElementById("output");
 const downloadButton = document.getElementById("download");
 const fontSelect = document.getElementById("fontSelect");
 const positionRadios = document.getElementsByName("position");
+
+// 新增用于下载的隐藏 Canvas
+const downloadCanvas = document.createElement("canvas");
+const downloadCtx = downloadCanvas.getContext("2d");
 
 let currentImageSrc = null; // 保存当前图片的 src
 let imageTimestamp = null; // 保存图片文件的时间戳
@@ -22,22 +26,32 @@ function processImage(file) {
 function drawImageWithWatermark(src, timestamp) {
   const img = new Image();
   img.onload = () => {
-    setupCanvas(img.width, img.height);
-    ctx.drawImage(img, 0, 0, img.width, img.height);
-    addWatermark(img.width, img.height, timestamp);
+    // 设置下载 Canvas 与原始图片相同尺寸
+    setupCanvas(downloadCanvas, downloadCtx, img.width, img.height);
+    downloadCtx.drawImage(img, 0, 0, img.width, img.height);
+    addWatermark(downloadCtx, img.width, img.height, timestamp);
+
+    // 设置预览 Canvas，尺寸缩小，降低画质
+    const previewWidth = img.width * 0.5; // 将预览图的分辨率设为原图的 50%
+    const previewHeight = img.height * 0.5;
+    setupCanvas(previewCanvas, previewCtx, previewWidth, previewHeight);
+    previewCtx.drawImage(img, 0, 0, previewWidth, previewHeight);
+    addWatermark(previewCtx, previewWidth, previewHeight, timestamp);
+
     updateOutput();
   };
   img.src = src;
 }
 
-function setupCanvas(width, height) {
+function setupCanvas(canvas, ctx, width, height) {
   canvas.width = width;
   canvas.height = height;
+  ctx.clearRect(0, 0, width, height); // 清除之前的内容
 }
 
-function addWatermark(width, height, timestamp) {
-  const fontSize = Math.max(Math.min(width, height) * 0.05, 16);
-  const selectedFont = fontSelect.value;
+function addWatermark(ctx, width, height, timestamp) {
+  const fontSize = Math.max(Math.min(width, height) * 0.03, 16); // 设置字体大小 3% 至 10px
+  const selectedFont = fontSelect.value; // 获取用户选择的字体
   ctx.font = `${fontSize}px ${selectedFont}`;
   ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
 
@@ -78,13 +92,14 @@ function addWatermark(width, height, timestamp) {
 }
 
 function updateOutput() {
-  output.src = canvas.toDataURL("image/png");
+  output.src = previewCanvas.toDataURL("image/jpeg", 0.2); // 降低预览图的画质
   downloadButton.style.display = "inline-block";
 }
 
 function downloadImage() {
   const link = document.createElement("a");
-  link.href = canvas.toDataURL("image/png", 1.0);
+  // 使用高质量导出下载图像
+  link.href = downloadCanvas.toDataURL("image/png", 1.0);
   link.download = "带水印的图片.png";
   link.click();
 }
