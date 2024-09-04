@@ -15,11 +15,11 @@
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Permanent+Marker&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"
       rel="stylesheet"
     />
-    <title>照片水印工具</title>
     <link rel="stylesheet" href="./src/style.css" />
+    <title>照片水印工具</title>
   </head>
   <body>
     <div class="photo-container">
@@ -28,24 +28,32 @@
     </div>
 
     <div class="controls">
-      <input type="file" id="upload" accept="image/*" />
-      <label for="fontSelect">选择字体:</label>
-      <select id="fontSelect">
-        <option value="Arial">Arial</option>
-        <option value="Verdana">Verdana</option>
-        <option value="Times New Roman">Times New Roman</option>
-        <option value="Nerko One">Nerko One</option>
-        <option value="Handjet">handjet</option>
-        <option value="Permanent Marker">Permanent Marker</option>
-      </select>
-      <label for="positionSelect">选择水印位置:</label>
-      <select id="positionSelect">
-        <option value="bottom-right">右下角</option>
-        <option value="bottom-left">左下角</option>
-        <option value="top-right">右上角</option>
-        <option value="top-left">左上角</option>
-      </select>
-      <button id="download" style="display: none">下载图片</button>
+      <div class="control-group">
+        <input type="file" id="upload" class="upload-btn" accept="image/*" />
+      </div>
+      <div class="control-group">
+        <label for="fontSelect">选择字体:</label>
+        <select id="fontSelect">
+          <option value="Arial">Arial</option>
+          <option value="Verdana">Verdana</option>
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Nerko One">Nerko One</option>
+          <option value="Handjet">Handjet</option>
+          <option value="Permanent Marker">Permanent Marker</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="positionSelect">选择水印位置:</label>
+        <select id="positionSelect">
+          <option value="bottom-right">右下角</option>
+          <option value="bottom-left">左下角</option>
+          <option value="top-right">右上角</option>
+          <option value="top-left">左上角</option>
+        </select>
+      </div>
+      <button id="download" class="download-btn" style="display: none">
+        下载图片
+      </button>
     </div>
 
     <script src="./src/script.js"></script>

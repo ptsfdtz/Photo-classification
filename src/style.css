@@ -6,29 +6,44 @@ body {
     min-height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
 }
 
 .photo-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
+    width: 70vw; /* 设置照片池宽度为视口的 70% */
+    max-height: 70vh; /* 设置照片池最大高度为视口的 70% */
     margin-bottom: 20px;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 #canvas {
-    border: 1px solid #ccc;
-    max-width: 70vw; /* 最大宽度为视口宽度的 70% */
-    max-height: 70vh; /* 最大高度为视口高度的 70% */
+    max-width: 100%;
+    max-height: 100%;
     width: auto;
-    height: auto; 
+    height: auto;
 }
 
 .controls {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .controls label,
@@ -36,4 +51,32 @@ body {
 .controls button,
 .controls input {
     margin: 5px;
+}
+
+.upload-btn {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+button {
+    padding: 8px 16px;
+    background-color: #9c9c9c;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4e4e4e;
+}
+
+.download-btn{
+    font-size: 20px;
 }
