@@ -49,13 +49,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70vw; /* 设置照片池宽度为视口的 70% */
-    max-height: 70vh; /* 设置照片池最大高度为视口的 70% */
+    width: 70vw; 
+    max-height: 70vh; 
     margin-bottom: 20px;
     border: 2px solid #ccc;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    cursor: pointer;
 }
 
 #canvas {
@@ -65,6 +66,13 @@ body {
     height: auto;
 }
 
+#placeholder {
+    position: absolute;
+    text-align: center;
+    color: #888;
+    font-size: 40px;
+    pointer-events: none; /* 确保点击事件传递到照片池 */
+}
 .controls {
     display: flex;
     flex-wrap: wrap;
