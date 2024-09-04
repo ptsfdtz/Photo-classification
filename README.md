@@ -1,4 +1,4 @@
-# Add Watermark to Images
+# Add Watermark to Images online
 
 This is an onlinework project for adding watermark to images.
 
