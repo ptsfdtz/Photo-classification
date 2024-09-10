@@ -1,39 +1,3 @@
-.fixed-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #9c9c9c;
-    color: white;
-    padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .header {
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    background-color: #333;
-    width: 100%;
-    height: 60px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000; 
-  }
-  
-  .github-logo {
-    width: 100px; 
-    height: 40px;
-    margin: 10px;
-    filter: brightness(0) invert(1); /* 反转 */
-    cursor: pointer;
-  }
-  
 body {
     display: flex;
     flex-direction: column;
@@ -43,37 +7,70 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
-}
-
-.photo-container {
+  }
+  
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70vw; 
-    max-height: 70vh; 
+    width: 100%;
+    height: 60px;
+  }
+  
+  .github-logo {
+    width: 100px;
+    height: 40px;
+    margin: 10px;
+    filter: brightness(0) invert(1);
+    cursor: pointer;
+  }
+  
+  .photo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60vw;
+    max-height: 70vh;
     margin-bottom: 20px;
     border: 2px solid #ccc;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     cursor: pointer;
-}
-
-#canvas {
+    position: relative;
+  }
+  
+  #canvas {
     max-width: 100%;
     max-height: 100%;
     width: auto;
     height: auto;
-}
-
-#placeholder {
+  }
+  
+  #placeholder {
     position: absolute;
     text-align: center;
     color: #888;
     font-size: 40px;
-    pointer-events: none; /* 确保点击事件传递到照片池 */
-}
-.controls {
+    pointer-events: none;
+  }
+  
+  .controls {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -82,45 +79,41 @@ body {
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.control-group {
+  }
+  
+  .control-group {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.controls label,
-.controls select,
-.controls button,
-.controls input {
-    margin: 5px;
-}
-
-.upload-btn {
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f0f0f0;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
   }
-
-button {
-    padding: 8px 16px;
-    background-color: #9c9c9c;
+  
+  .styled-select,
+  .styled-color {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #3e6af0;
     border: none;
     border-radius: 4px;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
+  }
+  
+  button:hover {
+    background-color: #223bc8;
+  }
+  
+  .download-btn {
+    font-size: 18px;
+  }
 
-button:hover {
-    background-color: #4e4e4e;
-}
-
-.download-btn{
-    font-size: 20px;
-}
+  

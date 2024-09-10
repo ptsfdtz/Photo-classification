@@ -24,8 +24,16 @@
   <body>
     <header class="fixed-header">
       <div class="header">
-        <a href="https://github.com/ptsfdtz" target="_blank">
-          <img src="images/GitHub_Logo.png" alt="GitHub" class="github-logo" />
+        <a
+          href="https://github.com/ptsfdtz/Photo-classification"
+          target="_blank"
+          class="logo"
+        >
+          <img
+            src="images/GitHub_Logo.png"
+            alt="仓库地址"
+            class="github-logo"
+          />
         </a>
       </div>
     </header>
@@ -37,23 +45,33 @@
     </div>
 
     <div class="controls">
-      <label for="fontSelect">选择字体:</label>
-      <select id="fontSelect">
-        <option value="Arial">Arial</option>
-        <option value="Verdana">Verdana</option>
-        <option value="Times New Roman">Times New Roman</option>
-        <option value="Nerko One">Nerko One</option>
-        <option value="Handjet">Handjet</option>
-        <option value="Permanent Marker">Permanent Marker</option>
-      </select>
-      <label for="positionSelect">选择水印位置:</label>
-      <select id="positionSelect">
-        <option value="bottom-right">右下角</option>
-        <option value="bottom-left">左下角</option>
-        <option value="top-right">右上角</option>
-        <option value="top-left">左上角</option>
-      </select>
-      <button id="download" style="display: none">Download</button>
+      <div class="control-group">
+        <label for="fontSelect">选择字体:</label>
+        <select id="fontSelect" class="styled-select">
+          <option value="Arial">Arial</option>
+          <option value="Verdana">Verdana</option>
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Nerko One">Nerko One</option>
+          <option value="Handjet">Handjet</option>
+          <option value="Permanent Marker">Permanent Marker</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="positionSelect">选择水印位置:</label>
+        <select id="positionSelect" class="styled-select">
+          <option value="bottom-right">右下角</option>
+          <option value="bottom-left">左下角</option>
+          <option value="top-right">右上角</option>
+          <option value="top-left">左上角</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="colorSelect">选择水印颜色:</label>
+        <input type="color" id="colorSelect" class="styled-color" value="#ffffff" />
+      </div>
+      <button id="download" class="download-btn" style="display: none">
+        下载图片
+      </button>
     </div>
 
     <script src="./src/script.js"></script>

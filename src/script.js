@@ -9,6 +9,7 @@ const placeholder = document.getElementById("placeholder");
 
 const downloadCanvas = document.createElement("canvas");
 const downloadCtx = downloadCanvas.getContext("2d");
+const colorSelect = document.getElementById("colorSelect");
 
 let currentImageSrc = null;
 let imageTimestamp = null;
@@ -67,8 +68,9 @@ function setupCanvas(canvas, ctx, width, height) {
 function addWatermark(ctx, width, height, timestamp) {
   const fontSize = Math.max(Math.min(width, height) * 0.05, 16);
   const selectedFont = fontSelect.value;
+  const selectedColor = colorSelect.value; // 获取选择的颜色
   ctx.font = `${fontSize}px ${selectedFont}`;
-  ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+  ctx.fillStyle = selectedColor; // 使用用户选择的颜色
 
   const selectedPosition = positionSelect.value;
   let x, y;
@@ -87,7 +89,7 @@ function addWatermark(ctx, width, height, timestamp) {
       y = height - 20;
       break;
     case "top-right":
-      ctx.textAlign = "right";
+      ctx.textAlign = "right"; 
       ctx.textBaseline = "top";
       x = width - 20;
       y = 20;
@@ -102,6 +104,12 @@ function addWatermark(ctx, width, height, timestamp) {
 
   ctx.fillText(timestamp.toLocaleString(), x, y);
 }
+
+colorSelect.addEventListener("change", () => {
+  if (currentImageSrc) {
+    drawImageWithWatermark(currentImageSrc, imageTimestamp);
+  }
+});
 
 // 下载图片
 function downloadImage() {
